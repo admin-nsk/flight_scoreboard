@@ -1,0 +1,8 @@
+.flightScoreboard {
+    width: 400px;
+    height: 400px;
+}
+
+.flightScoreboard th {
+    color: red;
+}
