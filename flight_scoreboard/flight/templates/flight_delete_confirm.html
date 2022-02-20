@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+    {% block header_text %}Удаление рейса{% endblock %}
+{% block content %}
+    <form method="post">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-danger" value="Удалить">
+    <a href="{% url 'flight:index' %}" class="btn btn-outline-primary">
+                                Отмена
+                            </a>
+    </form>
+{% endblock %}

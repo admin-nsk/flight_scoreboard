@@ -9,9 +9,9 @@
                 {% endfor %}
 `
                 <form method="post" action="{% if not flight  %}
-                                                {% url 'new_flight' %}
+                                                {% url 'flight:new_flight' %}
                                             {% else %}
-                                                {% url 'flight_edit' flight_id=flight.id %}
+                                                {% url 'flight:flight_edit' flight_id=flight.id %}
                                             {% endif %}" enctype="multipart/form-data">
                     {% csrf_token %}
 
@@ -36,6 +36,11 @@
                             <button type="submit" class="btn btn-primary">
                                 {% if not flight %}Добавить{% else %}Сохранить{% endif %}
                             </button>
+                    {% if flight %}
+                            <a href="{% url 'flight:delete_flight' flight_id=flight.id %}" class="btn btn-outline-danger">
+                                Удалить
+                            </a>
+                    {% endif %}
                     </div>
                 </form>
 {% endblock %}

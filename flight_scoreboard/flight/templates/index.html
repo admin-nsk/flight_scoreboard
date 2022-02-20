@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
     {% block header_text %}Табло рейсов{% endblock %}
 {% block content %}
-    <form method="post" action="search/">
+    <div class="row">
+        <div class="col-12 mb-2 mt-2">
+            <b>Всего рейсов:</b>
+            <span>{{ flights.count }}</span>
+        </div>
+    </div>
+    <form method="post">
         {% csrf_token %}
         {{ search_form }}
-        <input type="submit" value="Поиск">
+        <input class="btn btn-outline-primary" type="submit" value="Поиск">
     </form>
-    <table class="table">
+    <table class="table mt-3">
     <thead>
         <tr>
             <th scope="col">Номер рейса</th>
@@ -28,7 +34,7 @@
             <td>{{ flight.planned_departure_time|date:"d.m.Y H:i" }} мск</td>
             <td>{{ flight.planned_arrival_time|date:"d.m.Y H:i" }} мск</td>
             <td>{{ flight.get_status_display }}</td>
-            <td><a class="btn btn-sm text-muted" href="{% url 'flight_edit' flight.id %}"
+            <td><a class="btn btn-sm text-muted" href="{% url 'flight:flight_edit' flight.id %}"
                         role="button">
                         Редактировать
                 </a></td>

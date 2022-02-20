@@ -6,14 +6,24 @@
     <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
     <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
     <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <title>Сибирские авиалинии</title>
+    <title>&#9992;Сибирские авиалинии</title>
 </head>
 <body>
     {% include 'nav.html' %}
     <main>
         <div class="container">
-            <h1>{% block header_text %}{% endblock %}</h1>
-            {% block content %}{% endblock %}
+            <div class="row">
+                <div class="col-12">
+                     <h1 class="mb-2 mt-2">{% block header_text %}{% endblock %}</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+
+
         </div>
     </main>
 

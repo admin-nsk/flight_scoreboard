@@ -1,4 +1,5 @@
 # coding=utf-8
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.http import require_http_methods
 
@@ -31,6 +32,7 @@ def index(request):
     }
     return render(request, 'index.html', context=data, status=200)
 
+
 @require_http_methods(['GET', 'POST'])
 def flight_view(request, flight_id):
     flight = get_object_or_404(Flight, pk=flight_id)
@@ -38,7 +40,7 @@ def flight_view(request, flight_id):
     if request.method == 'POST':
         if flight_form.is_valid():
             flight_form.save()
-            return redirect("index")
+            return redirect("flight:index")
     return render(request, "flight.html", {'flight_form': flight_form, 'flight': flight})
 
 
@@ -48,9 +50,18 @@ def new_flight(request):
         flight_form = FlightForm(request.POST)
         if flight_form.is_valid():
             flight_form.save()
-            return redirect('index')
+            return redirect('flight:index')
         return render(request, 'flight.html', {'flight_form': flight_form, 'flight': None})
     flight_form = FlightForm()
     return render(request, 'flight.html', {'flight_form': flight_form, 'flight': None})
 
 
+@require_http_methods(['POST', 'GET'])
+def delete_flight(request, flight_id):
+    flight = get_object_or_404(Flight, pk=flight_id)
+    if request.method == 'POST':
+        flight.delete()
+        messages.add_message(request, messages.SUCCESS, 'Рейс удален')
+        return redirect('flight:index')
+    else:
+        return render(request, 'flight_delete_confirm.html', {'flight_id': flight_id})
